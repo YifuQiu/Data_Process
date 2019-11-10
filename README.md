@@ -9,7 +9,7 @@
 
 ## Data-driven questions:
 - What is the relationship between the duration of the song and its popularity?
-- What is the evolution of the popularity accross time?
+- how songs popularity varies in time?
 - Are 'happy songs' more popular than 'sad songs'?
 
 # Finding Data
@@ -22,3 +22,16 @@
 - This library comes from the Million Song Dataset, which used a company called the Echo Nest to derive data points about one million popular contemporary songs. The Million Song Dataset is a collaboration between the Echo Nest and LabROSA, a laboratory working towards intelligent machine listening. The project was also funded in part by the National Science Foundation of America (NSF) to provide a large data set to evaluate research related to algorithms on a commercial size while promoting further research into the Music Information Retrieval field. The data contains standard information about the songs such as artist name, title, and year released. Additionally, the data contains more advanced information; for example, the length of the song, how many musical bars long the song is, and how long the fade in to the song was.
 - There are 10,000 rows and 35 columns.
 - With this dataset, we could solve the first question proposed.
+
+
+The second data set we found is about the most popular songs ranking. 
+- We downloaded the data set from Kaggle. In this web site, we are free to download and share the data set.
+- The data set we found was made by Eduardo. This data set collects the 200 most popular songs per day, the data spans from 1/1/2017 to 11/04/2017.
+- The data set contains 1.048.576 observations and 7 features. Each column corresponds to the position (rank), track name, artist name, streams URL, date and region. We can explain that each row corresponds to the ranking of the song on that date.
+- Using this data set, we can answer the second question. If we want to know the daily ranking of the song Chantaje, we can group the data set by date, filter the song Chantaje and obtain its position. We can plot a scatterplot figure to visualize the result, the horizontal axis of the figure should be the date and the vertical axis should be the position.
+The data set is available online: 
+
+  [Music Csv File](https://www.kaggle.com/edumucelli/spotifys-worldwide-daily-song-ranking/version/1/).
+  
+  or you can find the data set in the path Data_Process\data. Due to the size of the data set, it is divided into two part (music2-part1 and music2-part2)
+
