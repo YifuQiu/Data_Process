@@ -1,20 +1,20 @@
 # Domain of interest: music
 ## Interest in the field:
-- We chose to make a data-driven project in the music field because we think it's also possible to extract useful knowledge from art. Nowadays, everybody listens to music almost everyday, so data extracted from music might give us useful information.
+- We chose to make a data-driven project in the music field because we think it's also possible to extract useful knowledge from art. Nowadays, everybody listens to music almost everyday, so data extracted from music might give us useful information, like behaviors, moods or what kind of characteristics make a song popular.
 
 ## Examples of data driven project:
-- [Spleeter](https://github.com/deezer/spleeter). Deep learning project that uses Tensorflow to make a source separation on music tracks. Its trained model can perform various flavour of separation.
+- [Spleeter](https://github.com/deezer/spleeter). Deep learning project that uses Tensorflow to make a source separation on music tracks. Its trained model can perform various flavor of separation.
 - [Can We Predict the Outcome of Pitchfork Music Reviews?](https://towardsdatascience.com/can-we-predict-the-outcome-of-pitchfork-music-reviews-3b084d90c18f). It's a data analysis project that uses data from Pitchfork Music. It explores the relationship between several features (genre, artist, author, label) and the “Best New Music” distinction.
 - [Sentiment analysis of musical taste: a cross-European comparison](http://paulelvers.com/post/emotionsineuropeanmusic/). A data analysis project that provides an emotion classification of top 50 music charts across Europe.
 
 ## Data-driven questions:
-- What is the relationship between the duration of the song and its popularity?
-- How does songs popularity vary in time?
+- What is the relationship between the duration of the song and its popularity, controlling for other factors?
+- How does songs popularity vary in time (for example, do songs that are always popular have something in common)?
 - Are 'happy songs' more popular than 'sad songs'?
 
 # Data
 [Spotify Web API](https://developer.spotify.com/documentation/web-api/):
-- The data is collected directly from Spotify. The aritists themselves upload their music into the database.
+- The data is collected directly from Spotify. The artists themselves upload their music to the database.
 - As it is a Web API, there is not a definite number of rows or columns in the data set. It depends on the query. The documentation of the object model returned by the API can be found [here](https://developer.spotify.com/documentation/web-api/reference/object-model/).
 - With this data, we could answer the first and last questions proposed.
 
