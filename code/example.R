@@ -9,14 +9,11 @@ library(tidyverse)
 library(knitr)
 library(ggjoy)
 
-client_id <- read_file("keys/client_id.txt")
-client_id <- str_replace_all(client_id, "[\r\n]" , "")
-client_secret <- read_file("keys/client_secret.txt")
-client_secret <- str_replace_all(client_secret, "[\r\n]" , "")
-
+# Authentication
+client_id <- paste(readLines("../keys/client_id.txt"), collapse=" ")
+client_secret <- paste(readLines("../keys/client_secret.txt"), collapse=" ")
 Sys.setenv(SPOTIFY_CLIENT_ID = client_id)
 Sys.setenv(SPOTIFY_CLIENT_SECRET = client_secret)
-
 access_token <- get_spotify_access_token()
 
 # What was The Beatles’ favorite key?

@@ -1,0 +1,21 @@
+---
+title: "Data Processes Project"
+author: "Yifu Qiu, Shanshan Cheng, Alejandro Cobo Cabornero"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Abstract
+
+## Introduction and Related Work
+
+## Exploratory Data Analysis
+
+## Methods
+
+## Results
+
+## Discussion and Future work
