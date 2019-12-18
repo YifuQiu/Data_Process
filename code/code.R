@@ -2,6 +2,7 @@
 library(spotifyr)
 library(tidyverse)
 library(ggplot2)
+library(tidyr)
 
 # Authentication
 client_id <- paste(readLines("../keys/client_id.txt"), collapse=" ")
@@ -23,4 +24,22 @@ data <- data %>%
 
 xd = get_artist_audio_features(artist = 'the beatles', include_groups = c("album", "single"), return_closest_artist = TRUE, dedupe_albums = TRUE,authorization = get_spotify_access_token())
 
-View(xd)
+
+cancion = get_track("183Klch3PBWLz2S6zNUVxR")
+cancion$popularity
+
+cancionFeatures = get_track(data$track_id)
+
+test = get_artist_audio_features(artist = 'selena gomez', include_groups = c("album", "single"), return_closest_artist = TRUE, dedupe_albums = TRUE,authorization = get_spotify_access_token())
+
+
+
+
+track_features = lapply(test$track_id, get_track)
+track_features$popularity
+test = test %>% mutate(popularity = track_features$popularity)
+
+
+
+data <- data %>% 
+  mutate(popularity = (lapply(data$track_id, get_track))$popularity)
