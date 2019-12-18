@@ -37,8 +37,9 @@ ggplot(data = corrs) +
   ggtitle("Correlation between features and popularity") +
   labs(x = "Feature", y = "Correlation")
 
+#liner relation between energy and loudness. more energy more loudness
 ggplot(data = data) +
-  geom_point(mapping = aes(x = energy, y = loudness,color = mode_name))
+  geom_point(mapping = aes(x = energy, y = loudness,color = mode_name))+ggtitle("relation between energy and loudness")
 
 #we can observe that there's no relation between acousticness and tempo
 ggplot(data = data) +
