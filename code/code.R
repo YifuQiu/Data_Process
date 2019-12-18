@@ -40,3 +40,6 @@ ggplot(data = corrs) +
 ggplot(data = data) +
   geom_point(mapping = aes(x = energy, y = loudness,color = mode_name))
 
+#we can observe that there's no relation between acousticness and tempo
+ggplot(data = data) +
+  geom_point(mapping = aes(x = acousticness, y = tempo, color = mode_name))
