@@ -36,3 +36,7 @@ ggplot(data = corrs) +
   ylim(-.8, .8) +
   ggtitle("Correlation between features and popularity") +
   labs(x = "Feature", y = "Correlation")
+
+ggplot(data = data) +
+  geom_point(mapping = aes(x = energy, y = loudness,color = mode_name))
+
