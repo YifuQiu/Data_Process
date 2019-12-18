@@ -29,3 +29,5 @@ for (artist in artists){
 data <- data %>% 
   select(danceability, energy, key, loudness, speechiness, acousticness, instrumentalness, liveness, valence, tempo, track_id, mode_name, -track_id) %>% 
   mutate(popularity = pop)
+
+saveRDS(data, file = "../data/data.rds")
