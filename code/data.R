@@ -14,6 +14,7 @@ Sys.setenv(SPOTIFY_CLIENT_SECRET = client_secret)
 # List of artists
 artists <- c('the beatles','queen')
 pop = c()
+
 i = 1
 for (artist in artists){
   # Audio features for the artist discography
@@ -32,7 +33,9 @@ for (artist in artists){
 }
 
 data <- data %>%
-  select(danceability, energy, key, loudness, acousticness, instrumentalness, valence, tempo, track_id, mode, mode_name, -track_id) %>% 
+  select(duration_ms, danceability, energy, key, loudness, acousticness, instrumentalness, valence, tempo, track_id, mode, mode_name, -track_id) %>% 
   mutate(popularity = pop)
 
 saveRDS(data, file = "../data/data.rds")
+
+

@@ -2,6 +2,7 @@ library(ggplot2)
 
 data <- readRDS(file = "../data/data.rds")
 
+
 ggplot(data = data) +
   geom_boxplot(mapping = aes(x = mode_name, y = valence))
 
@@ -10,3 +11,11 @@ ggplot(data = data) +
 
 ggplot(data = data) +
   geom_point(mapping = aes(x = tempo, y = popularity, color = mode_name))
+
+
+
+
+
+
+model = lm(data = data, formula = popularity~.)
+summary(model)
