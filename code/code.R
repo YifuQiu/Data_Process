@@ -51,3 +51,11 @@ ggplot(data = data) +
   
   model = lm(data = data, formula = popularity~.)
   summary(model)
+  
+
+  #distribution of popularity
+  ggplot(data, aes(x=popularity)) + geom_histogram(binwidth=1, color = "black", fill = "green") +
+    geom_vline(aes(xintercept=mean(popularity)),
+               color="blue", linetype="dashed", size=1) + ggtitle("Distribution of popularity")
+  
+  
