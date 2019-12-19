@@ -59,3 +59,5 @@ ggplot(data = data) +
                color="blue", linetype="dashed", size=1) + ggtitle("Distribution of popularity")
   
   
+ggplot(data2,aes(x=tempo,y=loudness,colour = popularity))+geom_point(alpha=0.5
+        )+ggtitle("influence of tempo and loudness")# the influence of the loudness is bigger than ifluence of tempo
