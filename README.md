@@ -11,6 +11,7 @@
 - What is the relationship between the duration of the song and its popularity, controlling for other factors?
 - How does songs popularity vary in time (for example, do songs that are always popular have something in common)?
 - Are 'happy songs' more popular than 'sad songs'?
+- How well can we predict the popularity of a song given its audio features?
 
 # Data
 [Spotify Web API](https://developer.spotify.com/documentation/web-api/):
