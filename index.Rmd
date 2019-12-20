@@ -4,18 +4,128 @@ author: "Yifu Qiu, Shanshan Cheng, Alejandro Cobo Cabornero"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r include = F}
+source("code/analysis.R")
+source("code/model.R")
 ```
 
 ## Abstract
+This project presents a study of the relationship amongst audio features of a song and its popularity. We used statistics and machine learning to explain which audio features are relevant and how well can we predict the popularity of a song using them.
+
+We have used data from Spotify to create a dataset and trained a random forest algorithm with it. The results show that there's still a lot of information that is not explained by the variables.
 
 ## Introduction and Related Work
+In this project we will try to answer the following question:
+
+> How well can we predict the popularity of a song given its audio features?
+
+Solving this question could give artists a measurement of the expected popularity of their songs. Of course, this domain is very subjective, so we don't expect to obtain a very 
+accurate model.
+
+There are many data science studies and applications involving data from the music domain. Some of them are:
+
+* [Spleeter](https://github.com/deezer/spleeter): deep learning project that uses Tensorflow to make a source separation on music tracks. Its trained model can perform various flavor of separation.
+
+* [Can We Predict the Outcome of Pitchfork Music Reviews?](https://towardsdatascience.com/can-we-predict-the-outcome-of-pitchfork-music-reviews-3b084d90c18f): a data analysis project that uses data from Pitchfork Music. It explores the relationship between several features (genre, artist, author, label) and the “Best New Music” distinction.
+
+* [Sentiment analysis of musical taste: a cross-European comparison](http://paulelvers.com/post/emotionsineuropeanmusic/): a data analysis project that provides an emotion classification of top 50 music charts across Europe.
+
+* [What Makes a Song Likeable?](https://towardsdatascience.com/what-makes-a-song-likeable-dbfdb7abe404): in this study, the author explores the relationship between audio features and popularity.
+
++ [Why Are Songs on the Radio About the Same Length?](https://www.wired.com/2014/07/why-are-songs-on-the-radio-about-the-same-length/#): this is a study of the duration of the songs over the years.
 
 ## Exploratory Data Analysis
+We have created a dataset of audio features of songs by Queen using the Spotify Web API and the package _spotifyr_. The final size of the dataset is 816 observations and 11 variables. Here are some of the audio features of a track, as extracted from [Spotify](https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-features/):
+
+- **acousticness**: a confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.
+
+- **danceability**: danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.
+
+- **energy**: energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy.
+
+- **instrumentalness**: predicts whether a track contains no vocals. “Ooh” and “aah” sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly “vocal”. The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.
+
+- **loudness**: the overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing relative loudness of tracks. Loudness is the quality of a sound that is the primary psychological correlate of physical strength (amplitude). Values typical range between -60 and 0 db.
+
+- **valence**: a measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).
+
+The correlation between the variables is:
+
+```{r echo = F, message = F}
+analysis1()
+```
+
+There is a strong correlation between some variables, like _energy_ and _loudness_, or _valence_ and _danceability_.
+
+The target variable is _popularity_. Here we can see which variables are more correlated to it:
+
+```{r echo = F, message = F}
+analysis2()
+```
+
+_Loudness_ and _instrumentalness_ are the most correlated variables. A song with high _loudness_ and low _instrumentalness_ is more likely to be popular.
+
+The relationship bewteen _key_ and _mode_ can be instersting. Are some keys more likely to be in minor mode? Here is the relationship between them:
+
+```{r echo = F, message = F}
+analysis3()
+```
+
+It seems that songs in the keys of E and B tend to be in minor mode.
+
+The distribution of the target variable, _popularity_, is the following:
+
+```{r echo = F, message = F}
+analysis4()
+```
+
+It looks like a gaussian distribuition centered in 29.
+
+Finally, let's look if the distribution is different if we consider the  ode of the song:
+
+```{r echo = F, message = F}
+analysis5()
+```
+
+It seems that the popularityis not related to the mode of the song.
 
 ## Methods
+We are going to fit a linear regression model to assess the strenght of relationships amongst the variables. The formula of the linear model will be: 
+$$ popularity = \beta_0 + \beta1 \cdot danceability + \beta_2 \cdot key \cdot mode + \beta_3 \cdot loudness + \beta_4 \cdot acousticness + \beta_5 \cdot instrumentalness + \beta_6 \cdot tempo + \beta_7 \cdot duration $$
+We have removed the variables _energy_ and _valence_ because are highly correlated with _loudness_ and _danceability_, respectively. We have combined the variables _key_ and _mode_ because it makes more sense. The rest of the variables can be relevant to predict the outcome. The fitted model will tell us which variables are not linearly related to _popularity_.
+
+The machine learning model used to predict the popularity of a song is random forest, because of its versatility and high speed. The model handles missing values and categorical variables. We have splitted the data into testing and training sets. Part of the training set is used to tune the parameter of the model (_mtry_, the number of variables randomly sampled as candidates at each split) using a grid search. Rows containing missing values are removed.
 
 ## Results
+The linear model obtained is:
+
+```{r echo = F, message = F}
+linear_model()
+```
+
+The t-tests show that the variables _key_ $\cdot$ _mode_ and _tempo_ are not relevant to predict the outcome.
+
+The Root Mean Square Error of the random forest model in the validation process is:
+
+```{r echo = F, message = F}
+plot_rmse()
+```
+
+The best value for _mtry_ is `r fit$bestTune$mtry`. So, in the model, `r fit$bestTune$mtry` variables will be randomly sampled as candidates at each split.
+
+The following plot shows predicted vs observed values:
+
+```{r echo = F, message = F}
+plot_results()
+```
+
+The RMSE for the test set was `r error`.
 
 ## Discussion and Future work
+The results of the statistical model show that there's still a lot of the variability in the target variable that is not explained by the dependent variables. Also, the machine learning model fitted is not very accurate. This could imply two things:
+
+- There are still some variables not present in the data that are related to the popularity of a song.
+
+- The popularity of a song is so subjective that there isn't any mathematical model that can accurately predict it.
+
+Most likely, both are true. We might discover new variables that improve the performance of machine learning models, but it will never be perfect due to the subjectivity of the problem. An interesting approach to this problem would be training a specific model for each music genre, because the relationship of the variables could be different for different genres.

@@ -1,4 +1,4 @@
-# Libraries
+# Script to build the dataset
 library(spotifyr)
 library(dplyr)
 
@@ -12,7 +12,7 @@ Sys.setenv(SPOTIFY_CLIENT_ID = client_id)
 Sys.setenv(SPOTIFY_CLIENT_SECRET = client_secret)
 
 # List of artists
-artists <- c('the beatles','queen')
+artists <- c('queen')
 pop = c()
 
 i = 1
@@ -33,7 +33,7 @@ for (artist in artists){
 }
 
 data <- data %>%
-  select(duration_ms, danceability, energy, key, loudness, acousticness, instrumentalness, valence, tempo, track_id, mode, mode_name, -track_id) %>% 
+  select(danceability, energy, key, loudness, acousticness, instrumentalness, valence, tempo, track_id, mode_name, duration_ms, -track_id) %>% 
   mutate(popularity = pop)
 
 saveRDS(data, file = "../data/data.rds")
